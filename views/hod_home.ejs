@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+<link rel="stylesheet" href="../css/hod_home.css">
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <a id="scanner" href="/hod/scanner">Scanner page here</a>
+            <a id="show_attendance" href="/hod/show_attendance">show attendance</a>
+            <a id="undate" href="/hod/update_attendance">update attendance</a>
+            <a id="delete" href="/hod/delete_attendance">delete attendance</a>
+
+            <a id="scanner" href="/hod/create_subject">create subject</a>
+            <a id="show_attendance" href="/hod/show_subject">show subject</a>
+            <a id="undate" href="/hod/update_subject">update subject</a>
+            <a id="delete" href="/hod/delete_subject">delete subject</a>
+            <form action="<%=user_id.role%>/logout" method="post">
+                <button>logout</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
