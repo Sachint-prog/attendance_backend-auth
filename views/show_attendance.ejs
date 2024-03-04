@@ -25,7 +25,7 @@
     </form>
 
     <main>
-        <table border="1">
+        <table border="1" id="tableId">
             <tr>
                 <th>id</th>
                 <th>date</th>
@@ -47,6 +47,9 @@
                 <% } %>
             <% } %>
         </table>
+        <button id="exportButton">Export to Excel</button>
     </main>
+
+    <script src="../js/export.js"></script>
 </body>
 </html>
