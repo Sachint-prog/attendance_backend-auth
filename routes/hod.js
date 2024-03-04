@@ -24,6 +24,8 @@ router.post('/showAttendance',isAuth, facultyController.showAttendance)
 router.post('/updateAttendance',isAuth, facultyController.updateAttendance)
 router.post('deleteAttendance',isAuth, facultyController.deleteAttendance)
 router.post('/addEnrollmentNo',isAuth, facultyController.addEnrollmentNo)
+router.post('/manually_add_user',isAuth, facultyController.manually_add_user)
+
 
 
 router.get('/create_subject',isAuth, hodController.create_subject)

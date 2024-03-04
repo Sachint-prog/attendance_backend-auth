@@ -19,11 +19,11 @@ const scanner = new Html5QrcodeScanner('reader', {
     `;
     // Prints result inside the result element
   
-    scanner.clear();
+    
     // Clears scanning instance
   
-    document.getElementById('reader').remove();
-    document.getElementById('footer').remove();
+    // document.getElementById('reader').remove();
+    // document.getElementById('footer').remove();
     // Removes reader and footer elements from DOM since they are no longer needed
     
     let subject_name = document.querySelector("#subject_name")
@@ -65,3 +65,9 @@ const scanner = new Html5QrcodeScanner('reader', {
     let input_value = document.querySelector("#input_field").value
     success(input_value)
   })
+
+let stop_scanning = document.querySelector("#stop_scanning")
+stop_scanning.addEventListener("click", function(){
+  scanner.clear();
+  console.log("stop scanning")
+})

@@ -20,7 +20,9 @@ module.exports = {
         if (request.body == {}) {
             // console.log(request.body)
         }
-        let data = await dbs.queries([`SELECT distinct date_format(date, "%Y-%m-%d") as date from ${attendance};`, `select distinct subject from ${attendance};`, `select distinct * from users;`])
+        let data = await dbs.queries([`SELECT distinct date_format(date, "%Y-%m-%d") as date from ${attendance};`, `select * from ${subjects}`
+        // `select distinct subject from ${attendance};`,
+        , `select distinct * from users;`])
         let distinct_date = data[0]
         let distinct_subject = data[1]
         console.log(distinct_date, distinct_subject, request.session.user_id)
@@ -36,7 +38,8 @@ module.exports = {
         if (request.body.subject != "" && request.body.date != "") {
             let data = await dbs.queries([
                 `SELECT distinct date_format(date, "%Y-%m-%d") as date from ${attendance};`,
-                `select distinct subject from ${attendance};`,
+                // `select distinct subject from ${attendance};`,
+                `select * from ${subjects}`
                 `select date_format(date, "%Y-%m-%d") as date, time, subject, present from ${attendance} where date = '${request.body.date}' AND subject = '${request.body.subject}';`
             ])
 
@@ -50,7 +53,8 @@ module.exports = {
         } else if (request.body.subject != "") {
             let data = await dbs.queries([
                 `SELECT distinct date_format(date, "%Y-%m-%d") as date from ${attendance};`,
-                `select distinct subject from ${attendance};`,
+                `select * from ${subjects}`,
+                // `select distinct subject from ${attendance};`,
                 `select date_format(date, "%Y-%m-%d") as date, time, subject, present from ${attendance} where subject = '${request.body.subject}';`
             ])
 
@@ -64,7 +68,8 @@ module.exports = {
         } else if (request.body.date != "") {
             let data = await dbs.queries([
                 `SELECT distinct date_format(date, "%Y-%m-%d") as date from ${attendance};`,
-                `select distinct subject from ${attendance};`,
+                `select * from ${subjects}`,
+                // `select distinct subject from ${attendance};`,
                 `select date_format(date, "%Y-%m-%d") as date, time, subject, present from ${attendance} where date = '${request.body.date}';`
             ])
 
@@ -78,7 +83,8 @@ module.exports = {
         } else {
             let data = await dbs.queries([
                 `SELECT distinct date_format(date, "%Y-%m-%d") as date from ${attendance};`,
-                `select distinct subject from ${attendance};`
+                `select * from ${subjects}`
+                // `select distinct subject from ${attendance};`,
             ])
 
             let distinct_date = data[0]
@@ -142,9 +148,18 @@ module.exports = {
     },
 
     addEnrollmentNo: async (request, response) => {
-        // let data = await dbs.queries([`insert into ${attendance}(date, time, subject, present) values(current_date(), current_time(), "${request.body.subject_name_value}", ${request.body.enrollment_no});`])
+        let data = await dbs.queries([`insert into ${attendance}(date, time, subject, present) values(current_date(), current_time(), "${request.body.subject_name_value}", ${request.body.enrollment_no});`])
 
-        // response.redirect('faculty/scanner')
+        response.redirect(`/${request.session.user_id.role}/scanner`)
+        console.log(request.body)
+    },
+
+    manually_add_user: async (request, response) => {
+        // let eno = request.body.enno
+        
+        let data = await dbs.queries([`insert into ${attendance}(date, time, subject, present) values(current_date(), current_time(), "${request.body.subject}", ${request.body.enno});`])
+
+        response.redirect(`/${request.session.user_id.role}/scanner`)
         console.log(request.body)
     },
 

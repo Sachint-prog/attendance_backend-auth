@@ -17,7 +17,7 @@
         <select name="subject">
             <option value="">select subject</option>
             <% for(let i = 0; i < distinct_subject.length; i++){ %>
-                <option value="<%= distinct_subject[i].subject %>"><%= distinct_subject[i].subject %></option>
+                <option value="<%= distinct_subject[i].subject %>"><%= distinct_subject[i].name %></option>
             <% } %>
         </select>
     
