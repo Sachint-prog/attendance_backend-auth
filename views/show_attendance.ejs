@@ -6,7 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="<%=user_id.role%>/showAttendance" method="post">
+    <a href="/<%=user_id.role%>">home</a>
+    <form action="/<%=user_id.role%>/showAttendance" method="post">
         <select name="date">
             <option value="">select date</option>
             <% for(let i = 0; i < distinct_date.length; i++){ %>

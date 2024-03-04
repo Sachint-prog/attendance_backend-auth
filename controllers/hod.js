@@ -10,31 +10,31 @@ module.exports = {
     },
 
     create_subject: (request,response)=>{
-        response.render('create_subjects.ejs', { message: "data" })
+        response.render('create_subjects.ejs', { message: "data" ,user_id: request.session.user_id,})
     },
 
     update_subject: (request,response)=>{
-        response.render('update_subject.ejs', { message: "data" })
+        response.render('update_subject.ejs', { message: "data" ,user_id: request.session.user_id,})
     },
 
     delete_subject: (request,response)=>{
-        response.render('delete_subject.ejs', { message: "data" })
+        response.render('delete_subject.ejs', { message: "data" ,user_id: request.session.user_id,})
     },
 
     show_subject: async (request, response) => {
         let data = await dbs.queries([`select * from ${subjects};`])
         console.log(data)
-        response.render('show_subjects.ejs', { result_subjects: data[0] })
+        response.render('show_subjects.ejs', { result_subjects: data[0] ,user_id: request.session.user_id,})
     },
 
     createSubject: async (request, response) => {
         let data = await dbs.queries([`insert into ${subjects} values('${request.body.subject_name}');`, `select distinct * from users;`])
-        response.render('subject_created.ejs', { subject_name: request.body.subject_name })
+        response.render('subject_created.ejs', { subject_name: request.body.subject_name ,user_id: request.session.user_id,})
     },
 
     updateSubject: async (request, response) => {
         let data = await dbs.queries([`update ${subjects} set name = '${request.body.new_name}' where name = '${request.body.previous_name}';`, 'select * from subjects'])
-        response.render('show_subjects.ejs', { result_subjects: data[1][0] })
+        response.render('show_subjects.ejs', { result_subjects: data[1][0] ,user_id: request.session.user_id,})
     },
 
     deleteSubject: async (request, response) => {

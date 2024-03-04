@@ -13,13 +13,15 @@ router.get('/',isAuth, facultyController.getHome)
 
 router.get('/scanner', isAuth,facultyController.getScanner)
 router.get('/show_attendance',isAuth, facultyController.show_attendance)
-// router.get('/update_attendance', facultyController.update_attendance)
+router.get('/update_attendance',isAuth, facultyController.update_attendance)
 router.get('/delete_attendance',isAuth, facultyController.delete_attendance)
 // router.get('/dummy', facultyController.dummy)
 
 router.post('/showAttendance',isAuth, facultyController.showAttendance)
 router.post('deleteAttendance',isAuth, facultyController.deleteAttendance)
 router.post('/addEnrollmentNo',isAuth, facultyController.addEnrollmentNo)
+router.post('/updateAttendance',isAuth, facultyController.updateAttendance)
+
 router.post('/logout', isAuth, facultyController.logout)
 
 

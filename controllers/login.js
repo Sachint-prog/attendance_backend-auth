@@ -12,7 +12,7 @@ module.exports = {
 
 
     getRegister: (req,res) => {
-        res.render('register.ejs')
+        res.render('register.ejs', {info: "noError"})
     },
 
     addUser: async (req, res) => {
@@ -51,7 +51,7 @@ module.exports = {
         if(user[0][0] == undefined){
             return res.render('/login', {info: "error"})
         }
-
+        
         const isMatch = await bcrypt.compare(password, user[0][0].password)
         console.log(isMatch)
 
