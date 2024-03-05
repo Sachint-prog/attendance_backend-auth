@@ -65,11 +65,20 @@ module.exports = {
             "role": user[0][0].role
         }
 
-        if (req.body.role == "hod") {
+        res.redirect('/redirect')
+        // if (req.body.role == "hod") {
+        //     res.redirect("/hod")
+        // }
+        // else if(req.body.role == "faculty"){
+        //     res.redirect("/faculty")
+        // }
+    },
+    redirect_user: (req, res) => {
+        if (req.session.user_id.role == "hod") {
             res.redirect("/hod")
         }
-        else if(req.body.role == "faculty"){
+        else if(req.session.user_id.role == "faculty"){
             res.redirect("/faculty")
         }
-    },
+    }
 }
