@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/hod/addAttendance" method="post">
+
+        <select name="course" id="course">
+            <option value="">select a course</option>
+            <option value="diploma">diploma</option>
+            <option value="degree">degree</option>
+        </select>
+        
+        <select name="branch" id="branch">
+            <option value="">select a branch</option>
+        </select>
+        <select name="sem" id="sem">
+            <option value="">select a semister</option>
+        </select>
+    
+        <table border="1">
+            <tr>
+                <th>srno</th>
+                <th><input type="checkbox" name="selectAll" id="selectAll"> <label for="selectAll">selectAll</label></th>
+                <th>enrollment no</th>
+                <th>name</th>
+            </tr>
+            <% if(attendance != "no"){ %>
+    
+                <% for(let i = 0; i < attendance.length; i++){ %>
+                    <tr>
+                        <td><%= attendance[i].srno %></td>
+                        <td><input type="checkbox" name="<%= attendance[i].enrollment_no %>" class="options" id="<%= attendance[i].enrollment_no %>"> <label id="<%= attendance[i].enrollment_no %>_label" for="<%= attendance[i].enrollment_no %>" class="label_name">p/a</label></td>
+                        <td><%= attendance[i].enrollment_no %></td>
+                        <td><%= attendance[i].name %></td>
+                    </tr>
+                <% } %>
+            <% } %>
+        </table>
+    
+        <input type="radio" name="attendance" id="present" value="present">
+        <label for="present">present</label>
+        <input type="radio" name="attendance" id="absent" value="absent">
+        <label for="absent">absent</label>
+        <button id="reset">reset</button>
+        <button type="submit" id="submit">submit</button>
+    </form>
+    <script src="../js/dummy.js" type="module"></script>
+</body>
+</html>
