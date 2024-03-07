@@ -5,14 +5,14 @@ const dbs = require('../models/dbs')
 let subjects = 'subjects'
 let branch = 't_branch_dip'
 let sem = 't_sem_'
-let dummy_attendance = `dummy_attendance`
+let dummy_attendance = `d_4`
 
 module.exports = {
     getDummy: async(request,response)=>{
         // for (let i = 0; i < 100; i++) {
         //     let data = await dbs.queries([`insert into ${dummy_attendance} values (${i}, 22021306010${i}, 'xyz');`])
         // }
-        let data = await dbs.queries([`select * from ${dummy_attendance}`])
+        let data = await dbs.queries([`select sr_no, Enrollment_no, Student_name from ${dummy_attendance} where sr_no > 0`])
         console.log(data[0])
         response.render('dymmy.ejs', {user_id: request.session.user_id, send_data: "null", error: "noError", attendance: data[0]})
     },
@@ -32,9 +32,14 @@ module.exports = {
         // response.render('dymmy.ejs', {send_data: send_data, error: "send_data"})
     },
 
-    addAttendance: (req, res) => {
-        console.log(req.body)
-        console.log(req.body['2202130601092'])
+    addAttendance: async(req, res) => {
+        // let keys = Object.keys(req.body)
+        // keys.forEach(async(key) => {
+        //     if (key != "course" || key != "branch" || key != "sem") {
+        //     }
+        // });
+        let data = await dbs.dummy([`select * from dummy_1`], ['CREATE TABLE dummy_1 AS SELECT * FROM d_4;'],"dummy_1")
+        console.log(data)
     },
 
     getHome: (request,response)=>{

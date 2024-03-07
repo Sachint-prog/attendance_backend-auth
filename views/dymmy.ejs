@@ -32,10 +32,10 @@
     
                 <% for(let i = 0; i < attendance.length; i++){ %>
                     <tr>
-                        <td><%= attendance[i].srno %></td>
-                        <td><input type="checkbox" name="<%= attendance[i].enrollment_no %>" class="options" id="<%= attendance[i].enrollment_no %>"> <label id="<%= attendance[i].enrollment_no %>_label" for="<%= attendance[i].enrollment_no %>" class="label_name">p/a</label></td>
-                        <td><%= attendance[i].enrollment_no %></td>
-                        <td><%= attendance[i].name %></td>
+                        <td><%= attendance[i].sr_no %></td>
+                        <td><input type="checkbox" name="<%= attendance[i].Enrollment_no %>" class="options" id="<%= attendance[i].Enrollment_no %>"> <label id="<%= attendance[i].Enrollment_no %>_label" for="<%= attendance[i].Enrollment_no %>" class="label_name">p/a</label></td>
+                        <td><%= attendance[i].Enrollment_no %></td>
+                        <td><%= attendance[i].Student_name %></td>
                     </tr>
                 <% } %>
             <% } %>
