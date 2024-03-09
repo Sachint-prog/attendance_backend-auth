@@ -1,3 +1,7 @@
+// CREATE TABLE master_table_3 AS SELECT distinct course, branch, sem from master_table_2;
+// ALTER TABLE master_table_3 ADD id MEDIUMINT NOT NULL AUTO_INCREMENT KEY;
+
+
 module.exports = {
     queries: async (sql_query) =>{
         let return_data = []
@@ -97,7 +101,7 @@ module.exports = {
                 let data = await Promise.all([
                     pool.query(element),
                 ]);
-                return_data.push(data[0][0])
+                return_data.push(data[0][0][0])
                 await pool.end();
             }
         }

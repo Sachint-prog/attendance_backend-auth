@@ -8,6 +8,8 @@ const PORT = 2121
 const loginRoutes = require('./routes/login')
 const hodRoutes = require('./routes/hod')
 const facultyRoutes = require('./routes/faculty')
+const infoRoutes = require('./routes/info')
+
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
@@ -54,6 +56,8 @@ sessionStore.onReady().then(() => {
 app.use('/', loginRoutes)
 app.use('/hod', hodRoutes)
 app.use('/faculty', facultyRoutes)
+app.use('/info', infoRoutes)
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)

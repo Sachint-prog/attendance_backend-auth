@@ -13,7 +13,7 @@ const isAuth = (req, res, next) => {
 }
 
 router.get('/',isAuth, hodController.getHome)
-router.get('/dummy',isAuth, hodController.getDummy)
+router.get('/dummy',isAuth, facultyController.getDummy)
 
 router.get('/scanner', isAuth,facultyController.getScanner)
 router.get('/show_attendance',isAuth, facultyController.show_attendance)
@@ -39,8 +39,10 @@ router.post('/createSubject',isAuth, hodController.createSubject)
 router.post('/updateSubject',isAuth, hodController.updateSubject)
 router.post('/deleteSubject',isAuth, hodController.deleteSubject)
 router.post('/logout', isAuth, hodController.logout)
-router.post('/courses', isAuth, hodController.courses)
-router.post('/addAttendance', isAuth, hodController.addAttendance)
+// router.post('/courses', isAuth, hodController.courses)
+router.post('/addAttendance', isAuth, facultyController.addAttendance)
+router.post('/getTable', isAuth,facultyController.getTable)
+
 
 
 module.exports = router

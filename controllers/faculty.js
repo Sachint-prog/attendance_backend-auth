@@ -4,6 +4,8 @@ const dbs = require('../models/dbs')
 let attendance = 'table_5'
 // let users = 'users'
 let subjects = 'subjects'
+let master_table = `master_table`
+let subject_master_table = `d_4`
 
 module.exports = {
     getHome: (request, response) => {
@@ -168,5 +170,60 @@ module.exports = {
             if (err) throw err;
             response.redirect('/')
         })
-    }
+    },
+
+
+
+    getDummy: async(request,response)=>{
+        response.render('dymmy.ejs', {user_id: request.session.user_id, send_data: "null", error: "noError", attendance: "no"})
+    },
+
+    getTable: async(request,response)=>{
+        let data = await dbs.queries([`select sr_no, Enrollment_no, Student_name from ${subject_master_table} where sr_no > 0`])
+        console.log(request.body)
+        response.render('dymmy.ejs', {user_id: request.session.user_id, send_data: "null", error: "noError", attendance: data[0]})
+    },
+
+    courses: async(request,response)=>{
+        // let fakeData = {'name': 'name'}
+        
+        console.log(request.body)
+        let data = await dbs.queries([`select distinct branch from ${master_table} where course  = '${request.body.value}';`,`select distinct sem from ${master_table} where course  = '${request.body.value}';`])
+        // console.log(data)
+        let branch_data = data[0]
+        let sem_data = data[1]
+        let send_data = {
+            'branch': branch_data,
+            'sem': sem_data
+        }
+        // console.log(send_data)
+        response.json(send_data)
+        // response.render('dymmy.ejs', {send_data: send_data, error: "send_data"})
+    },
+
+
+    sem: async(request,response)=>{
+        // let fakeData = {'name': 'name'}
+        
+        console.log(request.body)
+        let data = await dbs.queries([`select distinct subject from ${master_table} where sem  = '${request.body
+        .sem}' and branch = '${request.body.branch}' and course = '${request.body.course}';`])
+        console.log(data)
+        let subject_data = data[0]
+        let send_data = {
+            'subject': subject_data,
+        }
+        // console.log(send_data)
+        response.json(send_data)
+        // response.render('dymmy.ejs', {send_data: send_data, error: "send_data"})
+    },
+
+    addAttendance: async(req, res) => {
+        let keys = Object.keys(req.body)
+        keys.forEach(async(key) => {
+            if (key != "course" || key != "branch" || key != "sem") {
+                let data = await dbs.dummy([`update dummy_1 set D_1 = '${req.body[key]}' where Enrollment_no = '${key}'`], ['CREATE TABLE dummy_1 AS SELECT * FROM d_4;'],"dummy_1")
+            }
+        });
+    },
 }
