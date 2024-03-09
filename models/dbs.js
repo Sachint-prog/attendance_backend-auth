@@ -3,19 +3,19 @@
 
 
 module.exports = {
-    queries: async (sql_query) =>{
+    queries: async (sql_query) => {
         let return_data = []
-        
+
         for (let i = 0; i < sql_query.length; i++) {
             const element = sql_query[i];
-    
+
             const mysql = require('mysql2/promise');
             const pool = mysql.createPool(
-                { 
-                    host: "127.0.0.1", 
-                    user: "root", 
-                    password: "debian", 
-                    database: "test" 
+                {
+                    host: "127.0.0.1",
+                    user: "root",
+                    password: "debian",
+                    database: "test"
                 }
             );
             let data = await Promise.all([
@@ -26,15 +26,15 @@ module.exports = {
         }
         return return_data
     },
-    dummy: async (sql_query_success, sql_query_fail, table_name) =>{
+    dummy: async (sql_query_success, sql_query_fail, table_name) => {
         let return_data = []
 
         const mysql = require('mysql2/promise');
         const pool = mysql.createPool(
-            { 
-                host: "127.0.0.1", 
-                user: "root", 
-                password: "debian", 
+            {
+                host: "127.0.0.1",
+                user: "root",
+                password: "debian",
                 database: "test",
             }
         );
@@ -44,19 +44,19 @@ module.exports = {
         ]);
         await pool.end();
         let table_exists = data[0][0].length
-        // console.log(table_exists, "dbs.js")
+        console.log(table_exists, "dbs.js")
 
         if (table_exists > 0) {
             for (let i = 0; i < sql_query_success.length; i++) {
                 const element = sql_query_success[i];
-        
+
                 const mysql = require('mysql2/promise');
                 const pool = mysql.createPool(
-                    { 
-                        host: "127.0.0.1", 
-                        user: "root", 
-                        password: "debian", 
-                        database: "test" 
+                    {
+                        host: "127.0.0.1",
+                        user: "root",
+                        password: "debian",
+                        database: "test"
                     }
                 );
                 let data = await Promise.all([
@@ -66,43 +66,93 @@ module.exports = {
                 await pool.end();
             }
         }
-        
-        else{
+
+        else {
+            console.log(sql_query_fail.length)
             for (let i = 0; i < sql_query_fail.length; i++) {
                 const element = sql_query_fail[i];
-        
+
                 const mysql = require('mysql2/promise');
-                const pool = mysql.createPool(
-                    { 
-                        host: "127.0.0.1", 
-                        user: "root", 
-                        password: "debian", 
-                        database: "test" 
-                    }
-                );
-                let data = await Promise.all([
-                    pool.query(element),
-                ]);
-                return_data.push(data[0][0])
-                await pool.end();
+                const connection = await mysql.createConnection({
+                    host: '127.0.0.1',
+                    user: 'root',
+                    database: 'test',
+                    password: 'debian'
+                });
+
+                // A simple SELECT query
+                try {
+                    const [results, fields] = await connection.query(element);
+                    // console.log(results); // results contains rows returned by server
+                    // console.log(fields); // fields contains extra meta data about results, if available
+                } catch (err) {
+                    // console.log(err);
+                }
+
+                // Using placeholders
+                // try {
+                //     const [results] = await connection.query(
+                //         'SELECT * FROM `table` WHERE `name` = ? AND `age` > ?',
+                //         ['Page', 45]
+                //     );
+
+                //     console.log(results);
+                // } catch (err) {
+                //     console.log(err);
+                // }
+
+
+
+                //     const pool = mysql.createPool(
+                //         { 
+                //             host: "127.0.0.1", 
+                //             user: "root", 
+                //             password: "debian", 
+                //             database: "test" 
+                //         }
+                //     );
+                //     let data = await Promise.all([
+                //         pool.query(element),
+                //     ]);
+                //     return_data.push(data[0][0])
+                //     await pool.end();
             }
+
             for (let i = 0; i < sql_query_success.length; i++) {
                 const element = sql_query_success[i];
-        
+
                 const mysql = require('mysql2/promise');
-                const pool = mysql.createPool(
-                    { 
-                        host: "127.0.0.1", 
-                        user: "root", 
-                        password: "debian", 
-                        database: "test" 
-                    }
-                );
-                let data = await Promise.all([
-                    pool.query(element),
-                ]);
-                return_data.push(data[0][0][0])
-                await pool.end();
+
+                const connection = await mysql.createConnection({
+                    host: '127.0.0.1',
+                    user: 'root',
+                    database: 'test',
+                    password: 'debian'
+                });
+
+                // A simple SELECT query
+                try {
+                    const [results, fields] = await connection.query(element);
+                    // console.log(results); // results contains rows returned by server
+                    // console.log(fields); // fields contains extra meta data about results, if available
+                } catch (err) {
+                    // console.log(err);
+                }
+
+
+                // const pool = mysql.createPool(
+                //     { 
+                //         host: "127.0.0.1", 
+                //         user: "root", 
+                //         password: "debian", 
+                //         database: "test" 
+                //     }
+                // );
+                // let data = await Promise.all([
+                //     pool.query(element),
+                // ]);
+                // return_data.push(data[0][0][0])
+                // await pool.end();
             }
         }
         return return_data

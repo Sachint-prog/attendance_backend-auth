@@ -1,29 +1,8 @@
-let form = document.querySelector('form')
-form.addEventListener('submit', function (event) {
-    let options = document.querySelectorAll('.options')
-    options.forEach(option => {
-        option.checked = true
-        
-    });
-    let selectAll = document.querySelector('#selectAll')
-    selectAll.checked = false
-    let present = document.querySelector('#present')
-    present.checked = false
-    let absent = document.querySelector('#absent')
-    absent.checked = false
-    form.submit()
-})
-
-// let submit_btn = document.querySelector('#submit')
-// submit_btn.addEventListener('click', function () {
+// let form = document.querySelector('form')
+// form.addEventListener('submit', function (event) {
 //     let options = document.querySelectorAll('.options')
 //     options.forEach(option => {
 //         option.checked = true
-//         // option.value = 'p/a'
-//         // let id = option.id
-//         // let label = `${id}_label`
-//         // let label_elem = document.getElementById(`${label}`)
-//         // label_elem.innerText = 'p/a'
         
 //     });
 //     let selectAll = document.querySelector('#selectAll')
@@ -32,7 +11,28 @@ form.addEventListener('submit', function (event) {
 //     present.checked = false
 //     let absent = document.querySelector('#absent')
 //     absent.checked = false
+//     form.submit()
 // })
+
+let submit_btn = document.querySelector('#submit')
+submit_btn.addEventListener('click', function () {
+    let options = document.querySelectorAll('.options')
+    options.forEach(option => {
+        option.checked = true
+        // option.value = 'p/a'
+        // let id = option.id
+        // let label = `${id}_label`
+        // let label_elem = document.getElementById(`${label}`)
+        // label_elem.innerText = 'p/a'
+        
+    });
+    let selectAll = document.querySelector('#selectAll')
+    selectAll.checked = false
+    let present = document.querySelector('#present')
+    present.checked = false
+    let absent = document.querySelector('#absent')
+    absent.checked = false
+})
 
 let reset_btn = document.querySelector('#reset')
 reset_btn.addEventListener('click', function () {

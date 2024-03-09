@@ -220,6 +220,7 @@ module.exports = {
 
     addAttendance: async(req, res) => {
         let keys = Object.keys(req.body)
+        console.log(req.body)
         keys.forEach(async(key) => {
             if (key != "course" || key != "branch" || key != "sem") {
                 let data = await dbs.dummy([`update dummy_1 set D_1 = '${req.body[key]}' where Enrollment_no = '${key}'`], ['CREATE TABLE dummy_1 AS SELECT * FROM d_4;'],"dummy_1")
